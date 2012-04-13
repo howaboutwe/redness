@@ -21,5 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency "redis", "~> 2.2.2"
   s.add_dependency "timecop"
   s.add_dependency "active_support"
+  s.add_dependency "database_cleaner"
   s.require_paths = ["lib"]
 end

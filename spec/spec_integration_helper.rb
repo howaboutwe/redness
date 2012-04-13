@@ -1,4 +1,3 @@
-$TEST_MODE = true
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
@@ -6,7 +5,6 @@ require 'rspec'
 require 'redis'
 require 'resque'
 require 'active_support/core_ext'
-require 'rack/test'
 require 'redis_runner'
 require 'precisionable'
 require 'timecop'
@@ -14,13 +12,28 @@ require 'redness'
 
 RSpec.configure do |config|
   config.before(:suite) do
+    print "Starting Redis..."
+
+    RedisRunner.start
+
+    attempts = 10
+
+    until RedisRunner.up? or attempts <= 0
+      sleep 1
+      attempts -= 1
+    end
+
+    if RedisRunner.up? 
+      puts " OK"
+    else
+      puts " FAIL"
+    end
+
     $redis = Redis.new(
       host: RedisRunner.host,
       port: RedisRunner.port,
-      threadsafe: true
+      thread_safe: true
     )
-
-    RedisRunner.start
   end
 
   config.after(:suite) do
