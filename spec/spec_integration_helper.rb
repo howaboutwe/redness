@@ -5,10 +5,12 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'rspec'
 require 'redis'
 require 'resque'
-require 'timecop'
-require 'redness'
+require 'active_support/core_ext'
 require 'rack/test'
 require 'redis_runner'
+require 'precisionable'
+require 'timecop'
+require 'redness'
 
 RSpec.configure do |config|
   config.before(:suite) do
