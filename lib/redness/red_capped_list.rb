@@ -1,5 +1,6 @@
 class RedCappedList
   attr_accessor :key, :cap
+
   def initialize(key, cap)
     self.key = key
     self.cap = cap

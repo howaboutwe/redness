@@ -42,7 +42,7 @@ class RedSet
     redis.execute_with_uncertainty([]) do
       results = redis.zrevrange(key, lower_bound, upper_bound, :with_scores => with_scores)
       if with_scores
-        returning [] do |memo|
+        [].tap do |memo|
           results.each_slice(2) do |slice|
             memo << [slice[0].to_i, scoring.call(slice[1].to_i)]
           end
