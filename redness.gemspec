@@ -4,14 +4,14 @@ require "version"
 Gem::Specification.new do |s|
   s.name = "redness"
   s.version = Redness::VERSION
-  s.authors = %w(
-    Baldur Gudbjornsson
-    Matt Vermaak
-    Bryan Woods
-    Kenneth Lay
-    Marco Carag
-    Conner Peirce
-  )
+  s.authors = [
+    "Baldur Gudbjornsson",
+    "Matt Vermaak",
+    "Bryan Woods",
+    "Kenneth Lay",
+    "Marco Carag",
+    "Conner Peirce"
+  ]
   s.email = "dev@howaboutwe.com"
   s.summary = "Helpful Ruby classes for improved Redis data structures"
   s.description = "Helpful Ruby classes for improved Redis data structures"
