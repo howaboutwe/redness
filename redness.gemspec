@@ -3,7 +3,7 @@ require "version"
 
 Gem::Specification.new do |s|
   s.name = "redness"
-  s.version = "0.0.1"
+  s.version = Redness::VERSION
   s.authors = %w(
     Baldur Gudbjornsson
     Matt Vermaak
