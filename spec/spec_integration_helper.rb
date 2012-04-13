@@ -3,11 +3,12 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'rspec'
 require 'redis'
-require 'resque'
 require 'active_support/core_ext'
+require 'timecop'
+
 require 'redis_runner'
 require 'precisionable'
-require 'timecop'
+
 require 'redness'
 
 RSpec.configure do |config|
