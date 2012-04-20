@@ -1,7 +1,7 @@
 class RedisRunner
   def self.start
     fork do
-      `cd tmp && echo port #{port} | redis-server -`
+      `mkdir -p tmp && cd tmp && echo port #{port} | redis-server -`
        at_exit { exit! }
     end
   end
@@ -13,7 +13,7 @@ class RedisRunner
   end
 
   def self.up?
-    system("redis-cli -h #{host} -p #{port} 'INFO' 2&>1 > /dev/null")
+    system("redis-cli -h #{host} -p #{port} 'INFO' 2&> /dev/null")
     $? == 0
   end
 
