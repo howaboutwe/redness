@@ -5,7 +5,7 @@ Simple data structures for Redis-backed Ruby applications
 == Description
 
 Redness extends the redis-rb client library with useful data structures. It provides higher-level access
-to Redis than the redis-rb library while remaining more composable and minimal than a full-featured ORM.
+to Redis than the client library while remaining more composable and minimal than a full-featured ORM.
 
 == Installation
 
