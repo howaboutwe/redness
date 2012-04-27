@@ -58,9 +58,8 @@ to Redis than the client library while remaining more composable and minimal tha
 
 ### TODO
 
-Ensure all CRUD methods exist for all classes
-Unify interfaces and method names across all classes (and remove the singleton
-pattern wherever it is found)
+* Ensure all CRUD methods exist for all classes
+* Unify interfaces and method names across all classes (and remove the singleton pattern wherever it is found)
 
 ### Copyright
 
