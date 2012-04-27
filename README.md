@@ -62,7 +62,7 @@ to Redis than the client library while remaining more composable and minimal tha
   >> RedList.get("somelist")
   #=> [1]
   # Expire the 'somelist' RedList in 1 second
-  # RedExpire.set("somelist", 1.second)
+  RedExpire.set("somelist", 1.second)
   #=> true
   RedList.get("somelist")
   #=> []
