@@ -70,7 +70,7 @@ to Redis than the client library while remaining more composable and minimal tha
   RedSet.get("myset")
   #=> [1]
   # You can specify upper and lower bounds...
-  RedSet.get("myset").each {|i| RedSet.remove("myset", i) }
+  RedSet.get("myset").each { |i| RedSet.remove("myset", i) }
   RedSet.get("myset")
   #=> []
   1.upto(10).each { |i| RedSet.add("myset", i) }
@@ -94,7 +94,8 @@ to Redis than the client library while remaining more composable and minimal tha
   red_hash.all
   #=> {}
 
-  # RedExpire expires the collection with the provided key in a given number of seconds
+  # RedExpire expires the collection with the
+  # provided key in a given number of seconds
   RedList.new("somelist")
   RedList.add("somelist", 0)
   # => 1
