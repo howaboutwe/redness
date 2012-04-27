@@ -54,6 +54,18 @@ to Redis than the client library while remaining more composable and minimal tha
   #=> "OK"
   capped_list.get
   #=> [3, 2]
+
+  # RedExpire expires the provided key in a given number of seconds
+  RedList.new("somelist")
+  RedList.add("somelist", 0)
+  # => 1
+  >> RedList.get("somelist")
+  #=> [1]
+  # Expire the 'somelist' RedList in 1 second
+  # RedExpire.set("somelist", 1.second)
+  #=> true
+  RedList.get("somelist")
+  #=> []
 ```
 
 ### TODO
