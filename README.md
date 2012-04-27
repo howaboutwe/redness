@@ -55,6 +55,19 @@ to Redis than the client library while remaining more composable and minimal tha
   capped_list.get
   #=> [3, 2]
 
+  # RedHash represents its data as a Ruby hash
+  red_hash = RedHash.new("test")
+  red_hash[:mykey]
+  #=> nil
+  red_hash[:mykey] = "value"
+  red_hash[:mykey]
+  #=> "value"
+  red_hash.all
+  #=> {"mykey"=>"value"}
+  red_hash.remove(:mykey)
+  red_hash.all
+  #=> {}
+
   # RedExpire expires the provided key in a given number of seconds
   RedList.new("somelist")
   RedList.add("somelist", 0)
