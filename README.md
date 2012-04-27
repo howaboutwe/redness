@@ -12,7 +12,7 @@ to Redis than the client library while remaining more composable and minimal tha
   gem install redness
 ``
 
-### Getting Started
+### Playing Around 
 ```ruby
   require 'redis'
   require 'json'
@@ -54,6 +54,32 @@ to Redis than the client library while remaining more composable and minimal tha
   #=> "OK"
   capped_list.get
   #=> [3, 2]
+
+  # RedSet represents a unique set of data
+  RedSet.add("myset", 1)
+  #=> [1]
+  RedSet.add("myset", 1)
+  #=> nil
+  RedSet.get("myset")
+  #=> [1]
+  RedSet.add("myset", 2)
+  RedSet.get("myset")
+  #=> [2, 1]
+  RedSet.remove("myset", 2)
+  #=> true
+  RedSet.get("myset")
+  #=> [1]
+  # You can specify upper and lower bounds...
+  RedSet.get("myset").each {|i| RedSet.remove("myset", i) }
+  RedSet.get("myset")
+  #=> []
+  1.upto(10).each { |i| RedSet.add("myset", i) }
+  RedSet.get("myset")
+  #=> [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+  RedSet.get("myset", lower: 2, upper: 7)
+  #=> [8, 7, 6, 5, 4, 3]
+  RedSet.count("myset")
+  #=> 10
 
   # RedHash represents its data as a Ruby hash
   red_hash = RedHash.new("test")
