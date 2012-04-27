@@ -12,7 +12,7 @@ to Redis than the client library while remaining more composable and minimal tha
   gem install redness
 ``
 
-### Playing Around 
+### Playing Around  (Read the tests for more examples)
 ```ruby
   require 'redis'
   require 'json'
