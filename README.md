@@ -12,7 +12,7 @@ to Redis than the client library while remaining more composable and minimal tha
   gem install redness
 ``
 
-### Playing Around  (Read the tests for more examples)
+### Playing Around  (read the tests for more examples)
 ```ruby
   require 'redis'
   require 'json'
@@ -20,7 +20,7 @@ to Redis than the client library while remaining more composable and minimal tha
 
   $redis = Redis.new
 
-  # RedJSON represents a set of data as JSON
+  # RedJSON represents a collection of data as JSON
   RedJSON.set("foo", {:foo => ["bar", "baz", "buzz"]})
   #=> "OK"
   RedJSON.get("foo")
@@ -81,7 +81,7 @@ to Redis than the client library while remaining more composable and minimal tha
   RedSet.count("myset")
   #=> 10
 
-  # RedHash represents its data as a Ruby hash
+  # RedHash represents a data collection as a Ruby hash
   red_hash = RedHash.new("test")
   red_hash[:mykey]
   #=> nil
@@ -94,7 +94,7 @@ to Redis than the client library while remaining more composable and minimal tha
   red_hash.all
   #=> {}
 
-  # RedExpire expires the provided key in a given number of seconds
+  # RedExpire expires the collection with the provided key in a given number of seconds
   RedList.new("somelist")
   RedList.add("somelist", 0)
   # => 1
