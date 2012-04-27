@@ -99,7 +99,7 @@ to Redis than the client library while remaining more composable and minimal tha
   RedList.new("somelist")
   RedList.add("somelist", 0)
   # => 1
-  >> RedList.get("somelist")
+  RedList.get("somelist")
   #=> [1]
   # Expire the 'somelist' RedList in 1 second
   RedExpire.set("somelist", 1.second)
