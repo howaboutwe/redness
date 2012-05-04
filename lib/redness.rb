@@ -1,3 +1,5 @@
+require "precisionable"
+
 require "redness/red"
 require "redness/red_list"
 require "redness/red_capped_list"

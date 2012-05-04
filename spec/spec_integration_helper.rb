@@ -7,8 +7,6 @@ require 'active_support/core_ext'
 require 'timecop'
 
 require 'redis_runner'
-require 'precisionable'
-
 require 'redness'
 
 RSpec.configure do |config|

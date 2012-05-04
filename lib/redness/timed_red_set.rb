@@ -1,4 +1,5 @@
 class TimedRedSet < RedSet
+
   def self.add(key, member)
     super(key, member, :score => lambda { Precisionable.int_from_float(Time.now) })
   end
