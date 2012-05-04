@@ -14,8 +14,6 @@ to Redis than the client library while remaining more composable and minimal tha
 
 ### Playing Around  (read the tests for more examples)
 ```ruby
-  require 'redis'
-  require 'json'
   require 'redness'
 
   $redis = Redis.new

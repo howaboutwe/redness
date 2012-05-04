@@ -1,4 +1,4 @@
 module Redness
-  VERSION="0.0.4"
+  VERSION="0.0.5"
   MAJOR, MINOR, TINY = VERSION.split(".")
 end
