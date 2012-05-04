@@ -106,6 +106,21 @@ to Redis than the client library while remaining more composable and minimal tha
   multi_set.get
   #=> [[2, 1], [3, 2, 1]]
 
+  # RedSetUnion represents the union of two or more RedSets
+  RedSet.add("key1", 1)
+  RedSet.add("key1", 2)
+  RedSet.add("key1", 3)
+
+  RedSet.add("key2", 1)
+  RedSet.add("key2", 6)
+  RedSet.add("key2", 7)
+
+  RedSet.add("key3", 9)
+
+  union = RedSetUnion.new("key1", "key2", "key3")
+  union.get
+  #=> [7,3,6,2,9,1]
+
   # RedExpire expires the collection with the
   # provided key in a given number of seconds
   RedList.new("somelist")
