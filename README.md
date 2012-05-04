@@ -94,6 +94,18 @@ to Redis than the client library while remaining more composable and minimal tha
   red_hash.all
   #=> {}
 
+  # RedSetMulti stores a collection of RedSets
+  RedSet.add("razzle", 1)
+  RedSet.add("razzle", 2)
+
+  RedSet.add("dazzle", 1)
+  RedSet.add("dazzle", 2)
+  RedSet.add("dazzle", 3)
+
+  multi_set = RedSetMulti.new(RedSet.get("razzle"), RedSet.get("dazzle"))
+  multi_set.get
+  #=> [[2, 1], [3, 2, 1]]
+
   # RedExpire expires the collection with the
   # provided key in a given number of seconds
   RedList.new("somelist")
