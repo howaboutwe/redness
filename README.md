@@ -121,6 +121,19 @@ to Redis than the client library while remaining more composable and minimal tha
   union.get
   #=> [7,3,6,2,9,1]
 
+  # TimedRedSet is a RedSet with timestamped data
+  TimedRedSet.add("somekey", 1)
+  TimedRedSet.add("somekey", 2)
+
+  TimedRedSet.get("somekey")
+  #=> [2, 1]
+
+  TimedRedSet.get_with_timestamps("somekey")
+  #=> [[2, 2012-05-04 14:29:57 -0400], [1, 2012-05-04 14:29:48 -0400]]
+  
+  TimedRedSet.since("somekey", 5.minutes.ago, lower: 1, upper: 2)
+  #=> [1]
+
   # RedExpire expires the collection with the
   # provided key in a given number of seconds
   RedList.new("somelist")
