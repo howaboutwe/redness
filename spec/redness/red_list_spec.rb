@@ -1,6 +1,51 @@
 require 'spec_integration_helper'
 
 describe RedList do
+  describe "#initialize" do
+    it "creates a new RedList instance with the provided key" do
+      list = RedList.new("somekey")
+
+      list.key.should == "somekey"
+    end
+  end
+
+  describe "#add" do
+    it "adds the element to the list" do
+      list = RedList.new("somekey")
+
+      list.add(1)
+
+      list.value.should == [1]
+    end
+  end
+
+  describe "#remove" do
+    it "removes the element from the list" do
+      list = RedList.new("somekey")
+
+      list.add(1)
+      list.add(2)
+
+      list.value.should == [2, 1]
+
+      list.remove(2)
+
+      list.value.should == [1]
+    end
+  end
+
+  describe "#value" do
+    it "returns the vlue of the list" do
+      list = RedList.new("somekey")
+
+      list.value.should == []
+
+      list.add(1)
+
+      list.value.should == [1]
+    end
+  end
+
   describe ".add" do
     it "adds a member to the list" do
       RedList.add("somekey", 2)

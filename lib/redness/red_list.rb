@@ -1,4 +1,6 @@
 class RedList
+  attr_reader :key
+
   def self.redis
     @redis ||= Red.new
   end
@@ -47,4 +49,19 @@ class RedList
     end
   end
 
+  def initialize(key)
+    @key = key
+  end
+
+  def add(value)
+    self.class.add(@key, value)
+  end
+
+  def remove(value)
+    self.class.remove(@key, value)
+  end
+
+  def value
+    self.class.get(@key)
+  end
 end
