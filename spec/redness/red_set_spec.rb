@@ -1,6 +1,49 @@
 require 'spec_integration_helper'
 
 describe RedSet do
+  describe "#initialize" do
+    it "creates a new RedSet instance and stores the key" do
+      set = RedSet.new("somekey")
+
+      set.key.should == "somekey"
+    end
+  end
+
+  describe "#add" do
+    it "adds the given value to the set" do
+      set = RedSet.new("somekey")
+
+      set.add(1)
+
+      set.value.should == [1]
+    end
+  end
+
+  describe "#value" do
+    it "returns the RedSet collection" do
+      set = RedSet.new("somekey")
+      set.value.should == []
+
+      set.add(1)
+
+      set.value.should == [1]
+    end
+  end
+
+  describe "#remove" do
+    it "removes the item from the set" do
+      set = RedSet.new("somekey")
+      set.add(1)
+      set.add(2)
+
+      set.value.should == [2, 1]
+
+      set.remove(2)
+
+      set.value.should == [1]
+    end
+  end
+
   describe ".add" do
     it "should add a member to the set" do
       RedSet.add("somekey", 2)

@@ -1,4 +1,6 @@
 class RedSet
+  attr_reader :key
+
   def self.redis
     @redis ||= Red.new
   end
@@ -72,5 +74,21 @@ class RedSet
     redis.execute_with_uncertainty(nil) do
       redis.zscore(key, member)
     end
+  end
+
+  def initialize(key)
+    @key = key
+  end
+
+  def add(value, options = {})
+    self.class.add(@key, value, options)
+  end
+
+  def value
+    self.class.get(@key)
+  end
+
+  def remove(value)
+    self.class.remove(@key, value)
   end
 end
