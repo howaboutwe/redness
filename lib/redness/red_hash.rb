@@ -41,6 +41,10 @@ class RedHash
     end
   end
 
+  def get(key)
+    self[key]
+  end
+
   def set(options)
     redis.execute_with_uncertainty(false) do
       options.keys.each do |option|

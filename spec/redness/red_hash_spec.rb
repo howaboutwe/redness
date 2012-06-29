@@ -75,6 +75,22 @@ describe RedHash do
     end
   end
 
+  describe "#get" do
+    before do
+      red_hash.set(
+        key: "foo",
+        another: "bar",
+        yet_another: "baz"
+      )
+    end
+
+    it "is aliased to []" do
+      red_hash.should_receive(:[]).with("key").and_return("foo")
+
+      red_hash.get("key").should == "foo"
+    end
+  end
+
   describe "#set" do
     it "accepts a hash, and sets all keys" do
       red_hash.set(
