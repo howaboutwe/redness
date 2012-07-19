@@ -74,7 +74,7 @@ describe RedSet do
     it "sets the score when one is provided" do
       RedSet.add("somekey", 1, :score => lambda { 1000 })
 
-      RedSet.score("somekey", 1).should == "1000"
+      RedSet.score("somekey", 1).should == 1000
     end
   end
 
@@ -93,7 +93,7 @@ describe RedSet do
     it "returns the score of member within key" do
       RedSet.add("somekey", 1)
 
-      RedSet.score("somekey", 1).should == "0"
+      RedSet.score("somekey", 1).should == 0
     end
   end
 
