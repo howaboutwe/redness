@@ -1,3 +1,5 @@
+require 'timeout'
+
 class Red
   class RedisUnavailable < StandardError; end
 
