@@ -45,8 +45,14 @@ class RedSet
       results = redis.zrevrange(key, lower_bound, upper_bound, :with_scores => with_scores)
       if with_scores
         [].tap do |memo|
-          results.each_slice(2) do |slice|
-            memo << [slice[0].to_i, scoring.call(slice[1].to_i)]
+          if Red.client_version.first < 3
+            results.each_slice(2) do |slice|
+              memo << [slice[0].to_i, scoring.call(slice[1].to_i)]
+            end
+          else
+            results.each do |member, score|
+              memo << [member.to_i, scoring.call(score)]
+            end
           end
         end
       else

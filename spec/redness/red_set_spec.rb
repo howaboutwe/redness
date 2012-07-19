@@ -98,14 +98,28 @@ describe RedSet do
   end
 
   describe ".get" do
-    describe "pagination" do
-      it "should return results bounded by provided options" do
-        RedSet.add("somekey", 1)
-        RedSet.add("somekey", 2)
+    it "should return the elements in reverse-inserted order" do
+      RedSet.add('somekey', 1)
+      RedSet.add('somekey', 2)
+      RedSet.add('somekey', 3)
 
-        RedSet.get("somekey", :lower => 0, :upper => 0).should == [2]
-        RedSet.get("somekey", :lower => 1, :upper => 1).should == [1]
-      end
+      RedSet.get('somekey').should == [3, 2, 1]
+    end
+
+    it "should pair the elements with their scores if :with_scores is true" do
+      RedSet.add('somekey', 1)
+      RedSet.add('somekey', 2)
+      RedSet.add('somekey', 3)
+
+      RedSet.get('somekey', :with_scores => true).should == [[3, 2], [2, 1], [1, 0]]
+    end
+
+    it "should return results bounded by provided pagination options" do
+      RedSet.add("somekey", 1)
+      RedSet.add("somekey", 2)
+
+      RedSet.get("somekey", :lower => 0, :upper => 0).should == [2]
+      RedSet.get("somekey", :lower => 1, :upper => 1).should == [1]
     end
   end
 

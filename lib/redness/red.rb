@@ -7,6 +7,10 @@ class Red
     $redis
   end
 
+  def self.client_version
+    @version ||= Redis::VERSION.scan(/\d+/).map { |s| s.to_i }
+  end
+
   def self.delete(key)
     redis.del(key)
   end
