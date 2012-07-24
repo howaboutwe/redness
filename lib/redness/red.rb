@@ -21,7 +21,7 @@ class Red
 
   def execute_with_uncertainty(fail_return = [])
     yield
-  rescue RedisUnavailable, Errno::ECONNREFUSED, Timeout, Timeout::Error, Errno::EAGAIN
+  rescue RedisUnavailable, Redis::CannotConnectError, Errno::ECONNREFUSED, Timeout, Timeout::Error, Errno::EAGAIN
     fail_return
   end
 
