@@ -26,12 +26,14 @@ class Red
   end
 
   def multi_with_caution(fail_return = [])
-    redis.multi
-    yield
-    redis.exec
-  rescue
-    redis.discard
-    fail_return
+    redis.multi rescue return
+    begin
+      yield
+      redis.exec
+    rescue
+      redis.discard
+      fail_return
+    end
   end
 
   def method_missing(method, *args)
