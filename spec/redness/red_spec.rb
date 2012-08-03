@@ -1,6 +1,20 @@
 require_relative '../spec_integration_helper'
 
 describe Red do
+  describe "#execute_with_uncertainty" do
+    it "should return the given value if the block raises a Red::RedisUnavailable" do
+      Red.new.execute_with_uncertainty(2) { raise Red::RedisUnavailable }.should == 2
+    end
+
+    it "should return the given value if the block raises a Redis::CannotConnectError" do
+      Red.new.execute_with_uncertainty(2) { raise Redis::CannotConnectError }.should == 2
+    end
+
+    it "should return the given value if the block raises a Redis::TimeoutError" do
+      Red.new.execute_with_uncertainty(2) { raise Redis::TimeoutError }.should == 2
+    end
+  end
+
   describe "#multi_with_caution" do
     it "should not try call discard if the multi fails" do
       Red.redis.stub(:multi).and_raise(Redis::TimeoutError)
