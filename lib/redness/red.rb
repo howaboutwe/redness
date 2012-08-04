@@ -26,7 +26,7 @@ class Red
   end
 
   def multi_with_caution(fail_return = [])
-    redis.multi rescue return
+    redis.multi rescue return fail_return
     begin
       yield
       redis.exec
