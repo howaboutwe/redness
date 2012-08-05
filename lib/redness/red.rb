@@ -31,7 +31,13 @@ class Red
       yield
       redis.exec
     rescue
-      redis.discard
+      begin
+        redis.discard
+      rescue Redis::CommandError
+        # It's possible the multi failed, but didn't raise an exception -
+        # perhaps due to write(2) not being reattempted in the redis client
+        # (likely a bug).
+      end
       fail_return
     end
   end
