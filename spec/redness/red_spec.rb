@@ -29,10 +29,14 @@ describe Red do
         Red.new.multi_with_caution { raise error_class }.should == []
       end
 
-      it "should not call discard" do
-        lambda do
-          Red.new.multi_with_caution{}
-        end.should_not raise_error
+      it "should attempt to discard the transaction in case it's incomplete" do
+        Red.redis.should_receive(:discard)
+        Red.new.multi_with_caution{}
+      end
+
+      it "should handle a Redis::CommandError when discarding the transaction, in case the MULTI never fired" do
+        Red.redis.stub(:discard).and_raise(Redis::CommandError)
+        -> { Red.new.multi_with_caution{} }.should_not raise_error
       end
     end
 
@@ -46,26 +50,9 @@ describe Red do
       it "should return an empty array if no failure result is given" do
         Red.new.multi_with_caution { raise error_class }.should == []
       end
-
-      it "should discard the transaction" do
-        Red.redis.should_receive(:multi)
-        Red.redis.should_not_receive(:exec)
-        Red.redis.should_receive(:discard)
-        begin
-          Red.new.multi_with_caution{raise error_class}
-        rescue error_class
-        end
-      end
     end
 
     context "when the block does not raise an exception" do
-      it "should exec the transaction" do
-        Red.redis.should_receive(:multi)
-        Red.redis.should_receive(:exec)
-        Red.redis.should_not_receive(:discard)
-        Red.new.multi_with_caution{}
-      end
-
       it "should return the results of the exec'd commands" do
         result = Red.new.multi_with_caution do
           Red.redis.set('a', 1)

@@ -25,21 +25,18 @@ class Red
     fail_return
   end
 
-  def multi_with_caution(fail_return = [])
-    redis.multi rescue return fail_return
+  def multi_with_caution(fail_return = [], &block)
     begin
-      yield
-      redis.exec
-    rescue
-      begin
-        redis.discard
-      rescue Redis::CommandError
-        # It's possible the multi failed, but didn't raise an exception -
-        # perhaps due to write(2) not being reattempted in the redis client
-        # (likely a bug).
-      end
-      fail_return
+      redis.multi(&block) || fail_return
+    rescue Redis::TimeoutError
+      # The redis client pipelines the commands internally. It's possible the
+      # MULTI succeeds, but there's a timeout before reaching the EXEC. Try to
+      # issue an extra discard to ensure the transaction is closed.
+      redis.discard  # may raise Redis::CommandError if MULTI never succeeded
+      raise
     end
+  rescue
+    fail_return
   end
 
   def method_missing(method, *args)
