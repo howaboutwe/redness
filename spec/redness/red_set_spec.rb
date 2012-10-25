@@ -71,10 +71,20 @@ describe RedSet do
       set.should == [3,2]
     end
 
-    it "sets the score when one is provided" do
-      RedSet.add("somekey", 1, :score => lambda { 1000 })
+    context "when the score responds to #call" do
+      it "sets the score when one is provided" do
+        RedSet.add("somekey", 1, :score => lambda { 1000 })
 
-      RedSet.score("somekey", 1).should == 1000
+        RedSet.score("somekey", 1).should == 1000
+      end
+    end
+
+    context "the score is anything else" do
+      it "sets the score when one is provided" do
+        RedSet.add("somekey", 1, score: 20)
+
+        RedSet.score("somekey", 1).should == 20
+      end
     end
   end
 

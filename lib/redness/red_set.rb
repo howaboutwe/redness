@@ -12,6 +12,8 @@ class RedSet
       if redis.zrank(key, member).nil?
         if options[:score] and options[:score].respond_to?(:call)
           score = options[:score].call.to_i
+        elsif options[:score] && options[:score].respond_to?(:to_i)
+          score = options[:score].to_i
         else
           score = redis.zcard(key).to_i
         end
