@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.files = `git ls-files`.split("\n")
   s.add_runtime_dependency "json"
-  s.add_runtime_dependency "rspec"
+  s.add_development_dependency "rspec"
   s.add_runtime_dependency "redis", "~> 3.0.0"
   s.add_runtime_dependency "activesupport"
   s.add_development_dependency "timecop"
