@@ -88,6 +88,30 @@ describe RedSet do
     end
   end
 
+  describe ".cap" do
+    it "caps the set at the given size, dropping earlier elements" do
+      RedSet.add('key', 4)
+      RedSet.add('key', 1)
+      RedSet.add('key', 3)
+      RedSet.add('key', 2)
+
+      RedSet.cap('key', 2)
+
+      RedSet.get('key').to_set.should == Set[2, 3]
+    end
+
+    it "does nothing if the set is smaller than the given size" do
+      RedSet.add('key', 1)
+      RedSet.cap('key', 2)
+      RedSet.get('key').should == [1]
+    end
+
+    it "does nothing if the set does not exist" do
+      RedSet.cap('key', 2)
+      RedSet.get('key').should == []
+    end
+  end
+
   describe ".remove" do
     it "should remove a member from the set" do
       RedSet.add("somekey", 1)

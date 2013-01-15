@@ -23,13 +23,17 @@ class RedSet
         end
       end
     end
-
   ensure
     redis.execute_with_uncertainty(0) do
       redis.unwatch
     end
   end
 
+  def self.cap(key, size)
+    redis.execute_with_uncertainty(0) do
+      redis.zremrangebyrank(key, 0, -(size + 1))
+    end
+  end
 
   def self.remove(key, member)
     redis.execute_with_uncertainty do
