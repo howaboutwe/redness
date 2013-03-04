@@ -16,7 +16,7 @@ to Redis than the client library while remaining more composable and minimal tha
 ```ruby
   require 'redness'
 
-  $redis = Redis.new
+  Red.redis = Redis.new
 
   # RedJSON represents a collection of data as JSON
   RedJSON.set("foo", {:foo => ["bar", "baz", "buzz"]})

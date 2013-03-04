@@ -3,8 +3,8 @@ require 'timeout'
 class Red
   class RedisUnavailable < StandardError; end
 
-  def self.redis
-    $redis
+  class << self
+    attr_accessor :redis
   end
 
   def self.client_version

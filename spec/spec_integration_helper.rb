@@ -28,7 +28,7 @@ RSpec.configure do |config|
       puts " FAIL"
     end
 
-    $redis = Redis.new(
+    Red.redis = Redis.new(
       host: RedisRunner.host,
       port: RedisRunner.port,
       thread_safe: true
@@ -41,6 +41,6 @@ RSpec.configure do |config|
 
   config.after(:each) do
     Timecop.return
-    $redis.flushall
+    Red.redis.flushall
   end
 end
