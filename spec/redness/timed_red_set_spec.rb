@@ -55,7 +55,7 @@ describe TimedRedSet do
       TimedRedSet.since("somekey", 1.day.ago, :lower => 1, :upper => 2).should == [2,1]
     end
 
-    it "returns an array of elmeents with timestamps if the with_scores option is true" do
+    it "returns an array of elements with timestamps if the with_scores option is true" do
       Timecop.freeze(Time.at(1.5)) { TimedRedSet.add('somekey', 10) }
       Timecop.freeze(Time.at(2.5)) { TimedRedSet.add('somekey', 20) }
       Timecop.freeze(Time.at(3.5)) { TimedRedSet.add('somekey', 30) }
