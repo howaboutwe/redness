@@ -54,6 +54,24 @@ describe TimedRedSet do
       TimedRedSet.since("somekey", 1.day.ago, :lower => 0, :upper => 1).should == [3,2]
       TimedRedSet.since("somekey", 1.day.ago, :lower => 1, :upper => 2).should == [2,1]
     end
+
+    it "returns an array of elements with timestamps if the with_scores option is true" do
+      Timecop.freeze(Time.at(1.5)) { TimedRedSet.add('somekey', 10) }
+      Timecop.freeze(Time.at(2.5)) { TimedRedSet.add('somekey', 20) }
+      Timecop.freeze(Time.at(3.5)) { TimedRedSet.add('somekey', 30) }
+
+      TimedRedSet.since('somekey', 2, :with_scores => true).should ==
+        {20 => Time.at(2.5), 30 => Time.at(3.5)}
+    end
+
+    it "supports using the :upper/:lower and :with_scores attributes together" do
+      Timecop.freeze(Time.at(1.5)) { TimedRedSet.add('somekey', 10) }
+      Timecop.freeze(Time.at(2.5)) { TimedRedSet.add('somekey', 20) }
+      Timecop.freeze(Time.at(3.5)) { TimedRedSet.add('somekey', 30) }
+
+      TimedRedSet.since('somekey', 2, :lower => 1, :upper => 1, :with_scores => true).should ==
+        {20 => Time.at(2.5)}
+    end
   end
 
   describe ".get_with_timestamps" do
