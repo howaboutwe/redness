@@ -8,13 +8,23 @@ class TimedRedSet < RedSet
     precise_start = Precisionable.int_from_float(start)
 
     redis.execute_with_uncertainty([]) do
+      raw = redis.zrevrangebyscore(key, "+inf", precise_start, with_scores: options[:with_scores])
+
       if options[:upper] and options[:lower]
         lower = options[:lower].to_i
         upper = options[:upper].to_i
 
-        redis.zrevrangebyscore(key, "+inf", precise_start)[lower..upper].map(&:to_i)
+        raw = raw[lower..upper]
+      end
+
+      if options[:with_scores]
+        result = {}
+        raw.each do |member, score|
+          result[member.to_i] = Time.at(Precisionable.float_from_int(score))
+        end
+        result
       else
-        redis.zrevrangebyscore(key, "+inf", precise_start).map(&:to_i)
+        raw.map(&:to_i)
       end
     end
   end
