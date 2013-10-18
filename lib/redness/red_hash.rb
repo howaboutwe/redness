@@ -1,5 +1,5 @@
 class RedHash
-  attr_accessor :hash_key, :redis
+  attr_accessor :hash_key, :redis, :default
 
   def initialize(hash_key = self.class.name, redis = Red.new)
     self.hash_key = hash_key
@@ -15,7 +15,7 @@ class RedHash
 
   def [](key)
     redis.execute_with_uncertainty(nil) do
-      redis.hget(hash_key, key)
+      redis.hget(hash_key, key) || default
     end
   end
 
