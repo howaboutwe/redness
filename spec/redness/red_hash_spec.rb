@@ -28,8 +28,10 @@ describe RedHash do
       red_hash[:key].should == "value"
     end
 
-    it "returns nil if the key does not exist" do
+    it "returns the default if the key does not exist" do
       red_hash[:non_key].should be_nil
+      red_hash.default = "foo!"
+      red_hash[:non_key].should == "foo!"
     end
 
     it "should get different values depending on hash_key" do
