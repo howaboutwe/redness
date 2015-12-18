@@ -10,6 +10,10 @@ class RedCappedList
     RedList.get(key)
   end
 
+  def get_strings
+    RedList.get_strings(key)
+  end
+
   def add(value)
     RedList.add(key, value)
     RedList.trim_to(key, cap)

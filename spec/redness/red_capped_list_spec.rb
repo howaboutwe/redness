@@ -16,6 +16,20 @@ describe RedCappedList do
     end
   end
 
+  describe "#get_strings" do
+    it "returns the string values of the list at the key" do
+      r = RedCappedList.new("somekey", 2)
+
+      r.get_strings.should == []
+
+      r.add("foo")
+      r.add("bar")
+      r.add("baz")
+
+      r.get_strings.should == ["baz", "bar"]
+    end
+  end
+
   describe "#add" do
     it "adds to the list at the key" do
       r = RedCappedList.new("somekey", 1000)
