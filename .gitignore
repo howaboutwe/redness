@@ -1,3 +1,4 @@
 /Gemfile.lock
 *.gem
+*.sw[o,p]
 tmp/*

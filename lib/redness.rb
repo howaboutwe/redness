@@ -1,5 +1,6 @@
 require "json" unless defined?(JSON)
 require "redis" unless defined?(Redis)
+require "active_support"
 require "active_support/core_ext" unless defined?(ActiveSupport)
 
 require "precisionable"

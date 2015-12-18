@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'rspec'
 require 'redis'
+require 'active_support'
 require 'active_support/core_ext'
 require 'timecop'
 
